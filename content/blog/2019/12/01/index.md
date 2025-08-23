@@ -6,6 +6,6 @@ The e36 is joined by a 996.  I seem to like this guy's designs...
 
 https://en.wikipedia.org/wiki/Pinky_Lai
 
-![Art](./art.jpg)
-![996_2](./996_2.jpg)
+![Art](/images/blog/2019/12/01/art.jpg)
+![996_2](/images/blog/2019/12/01/996_2.jpg)
 

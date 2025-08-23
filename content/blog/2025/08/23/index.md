@@ -12,21 +12,21 @@ The issue is that CloudFront doesn't automatically serve index.html for director
 
   Create a CloudFront Function that rewrites directory URLs:
 
-  function handler(event) {
-      var request = event.request;
-      var uri = request.uri;
+    function handler(event) {
+        var request = event.request;
+        var uri = request.uri;
 
-      // If URI ends with '/', append 'index.html'
-      if (uri.endsWith('/')) {
-          request.uri += 'index.html';
-      }
-      // If URI doesn't have an extension and doesn't end with '/', add '/index.html'
-      else if (!uri.includes('.')) {
-          request.uri += '/index.html';
-      }
+        // If URI ends with '/', append 'index.html'
+        if (uri.endsWith('/')) {
+            request.uri += 'index.html';
+        }
+        // If URI doesn't have an extension and doesn't end with '/', add '/index.html'
+        else if (!uri.includes('.')) {
+            request.uri += '/index.html';
+        }
 
-      return request;
-  }
+        return request;
+    }
 
   Option 2: Update CloudFront Distribution Settings
 
