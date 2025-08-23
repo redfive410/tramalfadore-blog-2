@@ -5,6 +5,15 @@ import Bio from '@/components/Bio'
 import Seo from '@/components/Seo'
 import { getAllPostSlugs, getPostBySlug, getAllPosts } from '@/lib/posts'
 
+function formatDate(dateString: string): string {
+  const date = new Date(dateString);
+  return date.toLocaleDateString('en-US', { 
+    year: 'numeric', 
+    month: 'long', 
+    day: 'numeric' 
+  });
+}
+
 interface BlogPostPageProps {
   params: Promise<{
     slug: string[]
@@ -47,7 +56,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
       >
         <header>
           <h1 itemProp="headline">{post.title}</h1>
-          <p>{post.date}</p>
+          <p>{formatDate(post.date)}</p>
         </header>
         <section
           dangerouslySetInnerHTML={{ __html: post.content }}

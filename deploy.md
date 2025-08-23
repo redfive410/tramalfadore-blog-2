@@ -17,7 +17,7 @@ This guide explains how to deploy the Tramalfadore Blog to Google Cloud Run.
    ```bash
    gcloud services enable cloudbuild.googleapis.com
    gcloud services enable run.googleapis.com
-   gcloud services enable containerregistry.googleapis.com
+   gcloud services enable artifactregistry.googleapis.com
    ```
 
 ## Local Development
@@ -53,16 +53,24 @@ This will:
 You can also deploy manually:
 
 ```bash
-# Build and tag the image
-docker build -t gcr.io/YOUR_PROJECT_ID/tramalfadore-blog .
+# Create Artifact Registry repository (if not exists)
+gcloud artifacts repositories create tramalfadore-repo \
+  --repository-format=docker \
+  --location=us-central1
 
-# Push to Container Registry
-docker push gcr.io/YOUR_PROJECT_ID/tramalfadore-blog
+# Configure Docker to authenticate with Artifact Registry
+gcloud auth configure-docker us-central1-docker.pkg.dev
+
+# Build and tag the image
+docker build -t us-central1-docker.pkg.dev/YOUR_PROJECT_ID/tramalfadore-repo/tramalfadore-blog:latest .
+
+# Push to Artifact Registry
+docker push us-central1-docker.pkg.dev/YOUR_PROJECT_ID/tramalfadore-repo/tramalfadore-blog:latest
 
 # Deploy to Cloud Run
 gcloud run deploy tramalfadore-blog \
-  --image gcr.io/YOUR_PROJECT_ID/tramalfadore-blog \
-  --region us-central1 \
+  --image us-central1-docker.pkg.dev/YOUR_PROJECT_ID/tramalfadore-repo/tramalfadore-blog:latest \
+  --region us-west1 \
   --platform managed \
   --allow-unauthenticated
 ```
@@ -70,9 +78,10 @@ gcloud run deploy tramalfadore-blog \
 ## Configuration
 
 - **Service Name**: tramalfadore-blog
-- **Region**: us-central1
+- **Region**: us-west1
 - **Port**: 3000
 - **Access**: Public (unauthenticated)
+- **Registry**: us-central1-docker.pkg.dev
 
 ## Custom Domain
 
