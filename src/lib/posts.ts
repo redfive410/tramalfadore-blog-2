@@ -42,7 +42,7 @@ export async function getAllPosts(): Promise<BlogPost[]> {
       const fileContents = fs.readFileSync(fullPath, 'utf8')
       const { data, content } = matter(fileContents)
       
-      const processedContent = await remark().use(html).process(content)
+      const processedContent = await remark().use(html, { sanitize: false }).process(content)
       const contentHtml = processedContent.toString()
       
       // Create excerpt from content (first 160 characters)
@@ -68,7 +68,7 @@ export async function getPostBySlug(slug: string): Promise<BlogPost | null> {
     const fileContents = fs.readFileSync(fullPath, 'utf8')
     const { data, content } = matter(fileContents)
     
-    const processedContent = await remark().use(html).process(content)
+    const processedContent = await remark().use(html, { sanitize: false }).process(content)
     const contentHtml = processedContent.toString()
     
     const excerpt = content.replace(/^#+\s+/gm, '').substring(0, 160).trim() + '...'
