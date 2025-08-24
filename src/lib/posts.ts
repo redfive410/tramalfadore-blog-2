@@ -45,8 +45,9 @@ export async function getAllPosts(): Promise<BlogPost[]> {
       const processedContent = await remark().use(html, { sanitize: false }).process(content)
       const contentHtml = processedContent.toString()
       
-      // Create excerpt from content (first 160 characters)
-      const excerpt = content.replace(/^#+\s+/gm, '').substring(0, 160).trim() + '...'
+      // Remove iframes and create excerpt from content (first 160 characters)
+      const contentWithoutIframes = content.replace(/<iframe[^>]*>.*?<\/iframe>/gi, '').trim()
+      const excerpt = contentWithoutIframes.replace(/^#+\s+/gm, '').substring(0, 160).trim() + '...'
       
       return {
         slug: postPath,
