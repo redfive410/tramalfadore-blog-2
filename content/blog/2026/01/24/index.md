@@ -2,7 +2,7 @@
 title: MCP Apps (ChatGPT)
 date: "2026-01-24T12:50:00.000Z"
 ---
-A Demo ChatGPT App implementation of MCP Apps.
+A demo ChatGPT App implementation of MCP Apps.
 
 Ref: [https://blog.modelcontextprotocol.io/posts/2025-11-21-mcp-apps/](https://blog.modelcontextprotocol.io/posts/2025-11-21-mcp-apps/)
 
