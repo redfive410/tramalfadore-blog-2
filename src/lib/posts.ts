@@ -2,7 +2,9 @@ import fs from 'fs'
 import path from 'path'
 import matter from 'gray-matter'
 import { remark } from 'remark'
-import html from 'remark-html'
+import remarkRehype from 'remark-rehype'
+import rehypeRaw from 'rehype-raw'
+import rehypeStringify from 'rehype-stringify'
 
 const postsDirectory = path.join(process.cwd(), 'content/blog')
 
@@ -42,7 +44,11 @@ export async function getAllPosts(): Promise<BlogPost[]> {
       const fileContents = fs.readFileSync(fullPath, 'utf8')
       const { data, content } = matter(fileContents)
       
-      const processedContent = await remark().use(html, { sanitize: false }).process(content)
+      const processedContent = await remark()
+        .use(remarkRehype, { allowDangerousHtml: true })
+        .use(rehypeRaw)
+        .use(rehypeStringify)
+        .process(content)
       const contentHtml = processedContent.toString()
       
       // Remove iframes and create excerpt from content (first 160 characters)
@@ -69,7 +75,11 @@ export async function getPostBySlug(slug: string): Promise<BlogPost | null> {
     const fileContents = fs.readFileSync(fullPath, 'utf8')
     const { data, content } = matter(fileContents)
     
-    const processedContent = await remark().use(html, { sanitize: false }).process(content)
+    const processedContent = await remark()
+        .use(remarkRehype, { allowDangerousHtml: true })
+        .use(rehypeRaw)
+        .use(rehypeStringify)
+        .process(content)
     const contentHtml = processedContent.toString()
     
     const excerpt = content.replace(/^#+\s+/gm, '').substring(0, 160).trim() + '...'
