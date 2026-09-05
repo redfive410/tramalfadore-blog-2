@@ -2,7 +2,7 @@
 title: Agentic Trading
 date: "2026-09-04T12:00:00.000Z"
 ---
-Agentic Trading on Robinhood. No human in the loop. Max loss $500 and few other restrictions. The agent is allowed to trade outside a watch list but has been focused on those so far. 
+[https://robinhood.com/us/en/support/articles/agentic-trading-overview/](Agentic Trading) on Robinhood. No human in the loop. Max loss $500 and few other restrictions. The agent is allowed to trade outside a watch list but has been focused on those so far. 
 
 Setting up the Agentic Account was few button clicks and few days of waiting a few months ago. Then you connect all the MCP Robinhood tools to a bot with no human-in-the-loop and buckle up.
 
