@@ -10,7 +10,7 @@
     "export": "npm run build",
     "docker:build": "docker build -t tramalfadore-blog .",
     "docker:run": "docker run -p 3000:3000 tramalfadore-blog",
-    "gcp:deploy": "gcloud builds submit --config cloudbuild.yaml"
+    "gcp:deploy": "gcloud builds submit --config cloudbuild.yaml --project area51-954-dev-1"
   },
   "dependencies": {
     "@next/font": "^14.2.15",
